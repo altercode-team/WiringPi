@@ -913,12 +913,12 @@ void piFunctionOops (const char *function, const char* suggestion, const char* u
 
 void piGpioLayoutOops (const char *why)
 {
-  fprintf (stderr, "Oops: Unable to determine Raspberry Pi board revision from %s and from /proc/cpuinfo\n", revfile) ;
-  PrintSystemStdErr();
-  fprintf (stderr, " -> %s\n", why) ;
-  fprintf (stderr, " -> WiringPi is designed for Raspberry Pi and can only be used with a Raspberry Pi.\n\n") ;
-  fprintf (stderr, " -> Check at https://github.com/wiringpi/wiringpi/issues.\n\n") ;
-  exit (EXIT_FAILURE) ;
+  //fprintf (stderr, "Oops: Unable to determine Raspberry Pi board revision from %s and from /proc/cpuinfo\n", revfile) ;
+  //PrintSystemStdErr();
+  //fprintf (stderr, " -> %s\n", why) ;
+  //fprintf (stderr, " -> WiringPi is designed for Raspberry Pi and can only be used with a Raspberry Pi.\n\n") ;
+  //fprintf (stderr, " -> Check at https://github.com/wiringpi/wiringpi/issues.\n\n") ;
+  //exit (EXIT_FAILURE) ;
 }
 
 int piGpioLayout (void)
@@ -2641,11 +2641,11 @@ int wiringPiSetup (void)
       piGpioBase   = 0 ;
       usingGpioMem = TRUE ;
     }
-    else
-      return wiringPiFailure (WPI_ALMOST, "wiringPiSetup: Unable to open %s or %s: %s.\n"
-	"  Aborting your program because if it can not access the GPIO\n"
-	"  hardware then it most certianly won't work\n"
-	"  Try running with sudo?\n", gpiomemGlobal, gpiomemModule, strerror (errno)) ;
+    //else
+    //  return wiringPiFailure (WPI_ALMOST, "wiringPiSetup: Unable to open %s or %s: %s.\n"
+	//"  Aborting your program because if it can not access the GPIO\n"
+	//"  hardware then it most certianly won't work\n"
+	//"  Try running with sudo?\n", gpiomemGlobal, gpiomemModule, strerror (errno)) ;
   }
   if (wiringPiDebug) {
     printf ("wiringPi: access to %s succeded\n", usingGpioMem ? gpiomemModule : gpiomemGlobal) ;
@@ -2667,31 +2667,31 @@ int wiringPiSetup (void)
     base = NULL;
     gpio = (uint32_t *)mmap(0, BLOCK_SIZE, PROT_READ|PROT_WRITE, MAP_SHARED, fd, GPIO_BASE) ;
     if (gpio == MAP_FAILED)
-      return wiringPiFailure (WPI_ALMOST, "wiringPiSetup: mmap (GPIO) failed: %s\n", strerror (errno)) ;
+      //return wiringPiFailure (WPI_ALMOST, "wiringPiSetup: mmap (GPIO) failed: %s\n", strerror (errno)) ;
 
   //	PWM
 
     pwm = (uint32_t *)mmap(0, BLOCK_SIZE, PROT_READ|PROT_WRITE, MAP_SHARED, fd, GPIO_PWM) ;
     if (pwm == MAP_FAILED)
-      return wiringPiFailure (WPI_ALMOST, "wiringPiSetup: mmap (PWM) failed: %s\n", strerror (errno)) ;
+      //return wiringPiFailure (WPI_ALMOST, "wiringPiSetup: mmap (PWM) failed: %s\n", strerror (errno)) ;
 
   //	Clock control (needed for PWM)
 
     clk = (uint32_t *)mmap(0, BLOCK_SIZE, PROT_READ|PROT_WRITE, MAP_SHARED, fd, GPIO_CLOCK_BASE) ;
     if (clk == MAP_FAILED)
-      return wiringPiFailure (WPI_ALMOST, "wiringPiSetup: mmap (CLOCK) failed: %s\n", strerror (errno)) ;
+      //return wiringPiFailure (WPI_ALMOST, "wiringPiSetup: mmap (CLOCK) failed: %s\n", strerror (errno)) ;
 
   //	The drive pads
 
     pads = (uint32_t *)mmap(0, BLOCK_SIZE, PROT_READ|PROT_WRITE, MAP_SHARED, fd, GPIO_PADS) ;
     if (pads == MAP_FAILED)
-      return wiringPiFailure (WPI_ALMOST, "wiringPiSetup: mmap (PADS) failed: %s\n", strerror (errno)) ;
+      //return wiringPiFailure (WPI_ALMOST, "wiringPiSetup: mmap (PADS) failed: %s\n", strerror (errno)) ;
 
   //	The system timer
 
     timer = (uint32_t *)mmap(0, BLOCK_SIZE, PROT_READ|PROT_WRITE, MAP_SHARED, fd, GPIO_TIMER) ;
     if (timer == MAP_FAILED)
-      return wiringPiFailure (WPI_ALMOST, "wiringPiSetup: mmap (TIMER) failed: %s\n", strerror (errno)) ;
+      //return wiringPiFailure (WPI_ALMOST, "wiringPiSetup: mmap (TIMER) failed: %s\n", strerror (errno)) ;
 
   // Set the timer to free-running, 1MHz.
   //	0xF9 is 249, the timer divide is base clock / (divide+1)
